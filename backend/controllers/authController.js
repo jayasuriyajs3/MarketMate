@@ -13,11 +13,20 @@ const generateToken = (id) => {
 // @access  Public
 const registerShopkeeper = async (req, res) => {
   try {
-    const { username, email, password, shopName, phoneNumber, address } = req.body;
+    const { username, email, password, shopName, phoneNumber, address, role } = req.body;
 
-    // Validate input
-    if (!username || !email || !password || !shopName || !phoneNumber || !address) {
-      return res.status(400).json({ message: 'Please provide all required fields' });
+    const normalizedRole = ['user', 'shopkeeper'].includes(role) ? role : 'user';
+
+    // Validate base input
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Please provide username, email, and password' });
+    }
+
+    // Extra validation for shopkeepers
+    if (normalizedRole === 'shopkeeper') {
+      if (!shopName || !phoneNumber || !address) {
+        return res.status(400).json({ message: 'Shop name, phone number, and address are required for shopkeepers' });
+      }
     }
 
     // Check if user already exists
@@ -31,6 +40,8 @@ const registerShopkeeper = async (req, res) => {
       username,
       email,
       password,
+      role: normalizedRole,
+      isApproved: normalizedRole === 'shopkeeper' ? false : true,
       shopName,
       phoneNumber,
       address,
@@ -38,10 +49,12 @@ const registerShopkeeper = async (req, res) => {
 
     if (user) {
       res.status(201).json({
-        message: 'Registration successful',
+        message: normalizedRole === 'shopkeeper' ? 'Registration submitted, pending admin approval' : 'Registration successful',
         _id: user._id,
         username: user.username,
         email: user.email,
+        role: user.role,
+        isApproved: user.isApproved,
         shopName: user.shopName,
         phoneNumber: user.phoneNumber,
         address: user.address,
@@ -70,11 +83,17 @@ const loginShopkeeper = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+      if (user.role === 'shopkeeper' && !user.isApproved) {
+        return res.status(403).json({ message: 'Shopkeeper account not approved by admin yet' });
+      }
+
       res.json({
         message: 'Login successful',
         _id: user._id,
         username: user.username,
         email: user.email,
+        role: user.role,
+        isApproved: user.isApproved,
         shopName: user.shopName,
         phoneNumber: user.phoneNumber,
         address: user.address,

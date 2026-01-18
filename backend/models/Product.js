@@ -49,7 +49,7 @@ const productSchema = new mongoose.Schema({
   unit: {
     type: String,
     required: [true, 'Unit is required'],
-    enum: ['kg', 'gram', 'liter', 'ml', 'piece', 'packet', 'dozen'],
+    enum: ['kg', 'gram', 'g', 'liter', 'L', 'ml', 'piece', 'pieces', 'packet', 'pack', 'dozen'],
     default: 'piece',
   },
   imageUrl: {
@@ -73,12 +73,14 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-// Calculate final price before saving
-productSchema.pre('save', function (next) {
-  if (this.discount > 0) {
-    this.finalPrice = this.price - (this.price * this.discount) / 100;
+// Calculate final price BEFORE validation so required passes
+productSchema.pre('validate', function (next) {
+  const price = Number(this.price) || 0;
+  const discount = Number(this.discount) || 0;
+  if (discount > 0) {
+    this.finalPrice = Number((price - (price * discount) / 100).toFixed(2));
   } else {
-    this.finalPrice = this.price;
+    this.finalPrice = price;
   }
   this.lastUpdated = Date.now();
   next();

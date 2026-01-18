@@ -1,11 +1,95 @@
-/* Global base styles for Tailwind CDN setup */
-* {
-	box-sizing: border-box;
+/* Global base styles and simple dark theme */
+* { box-sizing: border-box; }
+
+:root {
+	--bg: #0b1220;
+	--surface: #0f172a;
+	--muted-surface: #111827;
+	--text: #e5e7eb;
+	--muted-text: #9ca3af;
+	--primary: #6366f1; /* indigo-500 */
+	--primary-600: #4f46e5;
+	--accent: #22d3ee; /* cyan-400 */
+	--success: #22c55e;
+	--danger: #ef4444;
+	--warning: #f59e0b;
+	--ring: rgba(99, 102, 241, 0.35);
 }
 
 body {
 	margin: 0;
 	font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-	background: #f8fafc;
-	color: #0f172a;
+	background: var(--bg);
+	color: var(--text);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transition: background 200ms ease, color 200ms ease;
+}
+
+/* Light theme override */
+body.mm-light {
+	--bg: #f8fafc;
+	--surface: #ffffff;
+	--muted-surface: #f3f4f6;
+	--text: #0f172a;
+	--muted-text: #6b7280;
+	--primary: #2563eb; /* blue-600 */
+	--primary-600: #1d4ed8;
+	--accent: #06b6d4;
+	--success: #16a34a;
+	--danger: #dc2626;
+	--warning: #d97706;
+	--ring: rgba(37, 99, 235, 0.35);
+}
+
+/* Utility shells for consistent theming without Tailwind config */
+.mm-surface { background: var(--surface); color: var(--text); }
+.mm-muted-surface { background: var(--muted-surface); color: var(--text); }
+.mm-border { border: 1px solid rgba(255,255,255,0.08); }
+.mm-shadow { box-shadow: 0 10px 20px rgba(0,0,0,0.25); }
+.mm-text-muted { color: var(--muted-text); }
+.mm-btn {
+	background: var(--muted-surface);
+	color: var(--text);
+	border: 1px solid rgba(255,255,255,0.08);
+	border-radius: 0.7rem;
+	padding: 0.6rem 1rem;
+	font-weight: 600;
+}
+.mm-btn:hover { filter: brightness(1.05); }
+.mm-btn-primary { background: var(--primary); border-color: transparent; color: #fff; }
+.mm-btn-primary:hover { background: var(--primary-600); }
+.mm-btn-danger { background: var(--danger); color: #fff; border-color: transparent; }
+.mm-input, .mm-select, .mm-textarea {
+	width: 100%;
+	background: var(--muted-surface);
+	color: var(--text);
+	border: 1px solid rgba(255,255,255,0.08);
+	border-radius: 0.6rem;
+	padding: 0.6rem 0.9rem;
+	outline: none;
+}
+.mm-input:focus, .mm-select:focus, .mm-textarea:focus { box-shadow: 0 0 0 3px var(--ring); border-color: transparent; }
+.mm-pill { background: var(--muted-surface); color: var(--text); border: 1px solid rgba(255,255,255,0.08); border-radius: 9999px; padding: 0.4rem 0.8rem; font-weight: 600; }
+.mm-pill.active { background: var(--primary); border-color: transparent; color: #fff; }
+.mm-price { color: #86efac; }
+.mm-strike { color: var(--muted-text); text-decoration: line-through; }
+
+/* Hero gradient */
+.mm-hero {
+	background-image: linear-gradient(110deg, #111827 0%, #0f172a 50%, #111827 100%);
+}
+
+/* Card image ratio helper */
+.mm-img { width: 100%; height: 12rem; object-fit: cover; border-radius: 0.5rem; }
+
+/* Header sticky outline */
+.mm-sticky { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.2) blur(6px); }
+
+/* Line clamp utility for consistent card heights */
+.line-clamp-2 {
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }

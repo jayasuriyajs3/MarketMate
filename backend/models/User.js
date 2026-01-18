@@ -24,22 +24,28 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['shopkeeper'],
-    default: 'shopkeeper',
+    enum: ['user', 'shopkeeper', 'admin'],
+    default: 'user',
+  },
+  isApproved: {
+    type: Boolean,
+    default: function () {
+      return this.role !== 'shopkeeper';
+    },
   },
   shopName: {
     type: String,
-    required: [true, 'Shop name is required'],
+    required: [function () { return this.role === 'shopkeeper'; }, 'Shop name is required'],
     trim: true,
   },
   phoneNumber: {
     type: String,
-    required: [true, 'Phone number is required'],
+    required: [function () { return this.role === 'shopkeeper'; }, 'Phone number is required'],
     trim: true,
   },
   address: {
     type: String,
-    required: [true, 'Address is required'],
+    required: [function () { return this.role === 'shopkeeper'; }, 'Address is required'],
     trim: true,
   },
   createdAt: {

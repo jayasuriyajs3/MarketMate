@@ -1,9 +1,30 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
+import { useCart } from './CartContext';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
-  const { user, setUser } = useAuth();
+  const authContext = useAuth();
+  const { user, setUser } = authContext || { user: null, setUser: null };
+  const { getTotalItems } = useCart();
   const navigate = useNavigate();
+  const [theme, setTheme] = useState(() => localStorage.getItem('mm_theme') || 'dark');
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.body.classList.add('mm-light');
+    } else {
+      document.body.classList.remove('mm-light');
+    }
+    localStorage.setItem('mm_theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (user && user.role !== 'shopkeeper') {
+      setCartCount(getTotalItems());
+    }
+  }, [getTotalItems, user]);
 
   const logout = () => {
     localStorage.removeItem('mm_token');
@@ -13,36 +34,68 @@ export default function Header() {
   };
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 sticky top-0 z-10">
-      <Link to="/" className="text-xl font-bold text-blue-600">MarketMate</Link>
-      <div className="flex gap-3 items-center">
+    <header className="mm-sticky flex justify-between items-center px-6 py-4 mm-surface mm-border">
+      <Link to="/" className="text-2xl font-bold" style={{color: 'var(--accent)'}}>
+        MarketMate
+      </Link>
+      <nav className="flex gap-3 items-center">
+        <button
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          title="Toggle theme"
+          className="mm-btn"
+        >
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </button>
         {user ? (
           <>
-            <span className="text-gray-600 font-semibold">Hi, {user.username}</span>
+            <Link to="/" className="mm-btn text-sm">Home</Link>
+            {user.role === 'shopkeeper' && (
+              <Link
+                to="/add-product"
+                className="mm-btn mm-btn-primary text-sm"
+              >
+                + Add Product
+              </Link>
+            )}
+            {user.role !== 'admin' && user.role !== 'shopkeeper' && (
+              <Link
+                to="/cart"
+                className="mm-btn text-sm relative"
+              >
+                🛒 Cart {cartCount > 0 && <span className="ml-1 font-bold" style={{color: 'var(--accent)'}}>{cartCount}</span>}
+              </Link>
+            )}
+            {user.role !== 'admin' && (
+              <Link
+                to="/profile"
+                className="mm-btn text-sm"
+              >
+                My Profile
+              </Link>
+            )}
+            {user.role === 'admin' && (
+              <Link
+                to="/admin/dashboard"
+                className="mm-btn mm-btn-primary text-sm"
+              >
+                Dashboard
+              </Link>
+            )}
             <button 
               onClick={logout} 
-              className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 font-semibold hover:border-blue-600 hover:text-blue-600 transition text-sm"
+              className="mm-btn mm-btn-danger text-sm"
             >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link 
-              to="/login" 
-              className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-900 font-semibold hover:border-blue-600 hover:text-blue-600 transition text-sm"
-            >
-              Login
-            </Link>
-            <Link 
-              to="/register" 
-              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition text-sm"
-            >
-              Register
-            </Link>
+            <Link to="/login" className="mm-btn text-sm">Login</Link>
+            <Link to="/register" className="mm-btn mm-btn-primary text-sm">Register</Link>
+            <Link to="/admin/login" className="mm-btn text-sm">Admin</Link>
           </>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

@@ -26,11 +26,17 @@ app.get('/', (req, res) => {
 const authRoutes = require('./routes/auth');
 const shopRoutes = require('./routes/shops');
 const productRoutes = require('./routes/products');
+const adminRoutes = require('./routes/admin');
+const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/orders');
 
 // Use routes
 app.use('/api/auth', authRoutes);
 app.use('/api/shops', shopRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

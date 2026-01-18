@@ -32,4 +32,23 @@ const protect = async (req, res, next) => {
   }
 };
 
-module.exports = { protect };
+const requireRole = (...roles) => {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      return res.status(403).json({ message: 'Not authorized for this action' });
+    }
+    next();
+  };
+};
+
+const requireApprovedShopkeeper = (req, res, next) => {
+  if (!req.user || req.user.role !== 'shopkeeper') {
+    return res.status(403).json({ message: 'Only shopkeepers can perform this action' });
+  }
+  if (!req.user.isApproved) {
+    return res.status(403).json({ message: 'Shopkeeper account not approved by admin yet' });
+  }
+  next();
+};
+
+module.exports = { protect, requireRole, requireApprovedShopkeeper };
