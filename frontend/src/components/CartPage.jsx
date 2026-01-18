@@ -53,54 +53,71 @@ export default function CartPage() {
               <div className="lg:col-span-2 space-y-4">
                 {cart.items.map((item) => (
                   <div key={item.product._id} className="mm-surface mm-border rounded-lg p-4">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div className="flex gap-4">
+                      {/* Product Image */}
                       <img
                         src={item.product.imageUrl}
                         alt={item.product.productName}
-                        className="h-24 w-24 object-cover rounded-lg"
+                        className="h-28 w-28 object-cover rounded-lg flex-shrink-0"
                       />
-                      <div>
-                        <h3 className="font-bold">{item.product.productName}</h3>
-                        <p className="text-sm mm-text-muted">{item.product.category}</p>
-                        <p className="text-xs mm-text-muted mt-1">{item.product.shopName}</p>
-                      </div>
-                      <div>
-                        <p className="font-bold mm-price">₹{item.product.finalPrice}</p>
-                        {item.product.discount > 0 && (
-                          <p className="text-xs mm-strike">₹{item.product.price}</p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
-                          disabled={item.quantity === 1 || loading}
-                          className="mm-btn px-2 py-1 text-sm disabled:opacity-50"
-                        >
-                          −
-                        </button>
-                        <span className="px-3 py-1 mm-muted-surface rounded text-center w-10">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
-                          disabled={loading}
-                          className="mm-btn px-2 py-1 text-sm disabled:opacity-50"
-                        >
-                          +
-                        </button>
-                        <button
-                          onClick={() => removeFromCart(item.product._id)}
-                          disabled={loading}
-                          className="mm-btn mm-btn-danger px-2 py-1 text-sm disabled:opacity-50"
-                        >
-                          Remove
-                        </button>
+                      
+                      {/* Product Details */}
+                      <div className="flex-1 flex flex-col">
+                        <div className="mb-2">
+                          <h3 className="font-bold text-lg">{item.product.productName}</h3>
+                          <p className="text-sm mm-text-muted">{item.product.category}</p>
+                          <p className="text-xs mm-text-muted mt-1">{item.product.shopName}</p>
+                        </div>
+                        
+                        <div className="flex items-center gap-3 mt-auto">
+                          {/* Price */}
+                          <div>
+                            <p className="font-bold mm-price">₹{item.product.finalPrice}</p>
+                            {item.product.discount > 0 && (
+                              <p className="text-xs mm-strike">₹{item.product.price}</p>
+                            )}
+                          </div>
+                          
+                          {/* Quantity Controls */}
+                          <div className="flex items-center gap-2 ml-4">
+                            <button
+                              onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
+                              disabled={item.quantity === 1 || loading}
+                              className="mm-btn px-2 py-1 text-sm disabled:opacity-50"
+                            >
+                              −
+                            </button>
+                            <span className="px-3 py-1 mm-muted-surface rounded text-center w-10 text-sm">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                              disabled={loading}
+                              className="mm-btn px-2 py-1 text-sm disabled:opacity-50"
+                            >
+                              +
+                            </button>
+                          </div>
+                          
+                          {/* Remove Button */}
+                          <button
+                            onClick={() => removeFromCart(item.product._id)}
+                            disabled={loading}
+                            className="mm-btn mm-btn-danger px-3 py-2 text-sm font-semibold disabled:opacity-50 ml-auto"
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div className="mt-2 text-right">
-                      <p className="font-bold">
-                        Subtotal: <span className="mm-price">₹{(item.product.finalPrice * item.quantity).toFixed(2)}</span>
-                      </p>
+                    
+                    {/* Subtotal */}
+                    <div className="mt-3 pt-3 border-t" style={{borderColor: 'rgba(255,255,255,0.08)'}}>
+                      <div className="text-right">
+                        <p className="font-bold">
+                          Subtotal: <span className="mm-price">₹{(item.product.finalPrice * item.quantity).toFixed(2)}</span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}
