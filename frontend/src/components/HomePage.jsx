@@ -44,7 +44,7 @@ export default function HomePage() {
       <Header />
       <div className="min-h-screen">
         {/* Hero Banner with Image */}
-        <div className="relative h-96 overflow-hidden">
+        <div className="relative h-[440px] sm:h-96 overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -53,16 +53,16 @@ export default function HomePage() {
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40" />
-          <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-4">
-            <div className="max-w-4xl">
-              <h1 className="text-6xl font-extrabold mb-4 drop-shadow-2xl">Welcome to MarketMate</h1>
-              <p className="text-2xl mb-6 drop-shadow-lg">Your Local Price Comparison Platform</p>
-              <p className="text-lg mb-8 opacity-95 drop-shadow-md">Compare prices from neighborhood shops • Find the best deals • Support local businesses</p>
-              <div className="flex gap-4 justify-center">
-                <button onClick={() => document.getElementById('products').scrollIntoView({behavior: 'smooth'})} className="mm-btn mm-btn-primary text-lg px-8 py-3">
+          <div className="relative z-10 h-full flex items-center justify-center text-center text-white px-3 sm:px-4">
+            <div className="w-full max-w-xs sm:max-w-2xl lg:max-w-4xl mx-auto">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-3 sm:mb-4 drop-shadow-2xl">Welcome to MarketMate</h1>
+              <p className="text-lg sm:text-2xl mb-4 sm:mb-6 drop-shadow-lg">Your Local Price Comparison Platform</p>
+              <p className="text-base sm:text-lg mb-6 sm:mb-8 opacity-95 drop-shadow-md max-w-xs sm:max-w-2xl mx-auto">Compare prices from neighborhood shops • Find the best deals • Support local businesses</p>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                <button onClick={() => document.getElementById('products').scrollIntoView({behavior: 'smooth'})} className="mm-btn mm-btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 w-full max-w-[220px] sm:w-auto sm:max-w-none">
                   Browse Products
                 </button>
-                <button onClick={() => window.location.href='/register'} className="mm-btn text-lg px-8 py-3">
+                <button onClick={() => window.location.href='/register'} className="mm-btn text-base sm:text-lg px-6 sm:px-8 py-3 w-full max-w-[220px] sm:w-auto sm:max-w-none">
                   Join as Shopkeeper
                 </button>
               </div>
@@ -71,22 +71,22 @@ export default function HomePage() {
         </div>
 
         {/* Features Section */}
-        <div className="py-16 mm-muted-surface">
+        <div className="py-12 sm:py-16 mm-muted-surface">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-12">Why Choose MarketMate?</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Why Choose MarketMate?</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center p-6">
-                <div className="text-5xl mb-4">🔍</div>
+                <div className="text-4xl sm:text-5xl mb-4">🔍</div>
                 <h3 className="text-xl font-bold mb-3">Compare Prices</h3>
                 <p className="mm-text-muted">Browse products from multiple local shops and compare prices instantly to find the best deals.</p>
               </div>
               <div className="text-center p-6">
-                <div className="text-5xl mb-4">💰</div>
+                <div className="text-4xl sm:text-5xl mb-4">💰</div>
                 <h3 className="text-xl font-bold mb-3">Save Money</h3>
                 <p className="mm-text-muted">Get real-time price updates and exclusive discounts from neighborhood stores near you.</p>
               </div>
               <div className="text-center p-6">
-                <div className="text-5xl mb-4">🏪</div>
+                <div className="text-4xl sm:text-5xl mb-4">🏪</div>
                 <h3 className="text-xl font-bold mb-3">Support Local</h3>
                 <p className="mm-text-muted">Help your community thrive by shopping from local businesses you know and trust.</p>
               </div>
@@ -95,23 +95,23 @@ export default function HomePage() {
         </div>
 
         {/* Stats Section */}
-        <div className="py-12 mm-surface border-y mm-border">
+        <div className="py-10 sm:py-12 mm-surface border-y mm-border">
           <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               <div>
-                <div className="text-4xl font-extrabold" style={{color: 'var(--accent)'}}>24+</div>
+                <div className="text-3xl sm:text-4xl font-extrabold" style={{color: 'var(--accent)'}}>24+</div>
                 <p className="mm-text-muted mt-2">Products</p>
               </div>
               <div>
-                <div className="text-4xl font-extrabold" style={{color: 'var(--accent)'}}>8</div>
+                <div className="text-3xl sm:text-4xl font-extrabold" style={{color: 'var(--accent)'}}>8</div>
                 <p className="mm-text-muted mt-2">Categories</p>
               </div>
               <div>
-                <div className="text-4xl font-extrabold" style={{color: 'var(--accent)'}}>2+</div>
+                <div className="text-3xl sm:text-4xl font-extrabold" style={{color: 'var(--accent)'}}>2+</div>
                 <p className="mm-text-muted mt-2">Local Shops</p>
               </div>
               <div>
-                <div className="text-4xl font-extrabold" style={{color: 'var(--accent)'}}>15%</div>
+                <div className="text-3xl sm:text-4xl font-extrabold" style={{color: 'var(--accent)'}}>15%</div>
                 <p className="mm-text-muted mt-2">Avg. Savings</p>
               </div>
             </div>
@@ -119,12 +119,12 @@ export default function HomePage() {
         </div>
 
         {/* Search Section */}
-        <div className="py-12 mm-surface" id="products">
+        <div className="py-10 sm:py-12 mm-surface" id="products">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-3 text-center">Find Products</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-center">Find Products</h2>
             <p className="text-center mm-text-muted mb-6">Search across all products from local shops</p>
             {/* Search Bar */}
-            <form onSubmit={handleSearch} className="flex gap-2 max-w-2xl mx-auto mb-8">
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2 max-w-2xl mx-auto mb-8">
               <input
                 type="text"
                 value={search}
@@ -132,7 +132,7 @@ export default function HomePage() {
                 placeholder="Search for products..."
                 className="mm-input"
               />
-              <button type="submit" className="mm-btn mm-btn-primary px-6">Search</button>
+              <button type="submit" className="mm-btn mm-btn-primary px-6 sm:w-auto w-full">Search</button>
             </form>
           </div>
         </div>
@@ -140,10 +140,10 @@ export default function HomePage() {
         {/* Filters */}
         <div className="mm-surface mm-border">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-4">
               {/* Categories */}
-              <div className="flex items-center gap-2 flex-1">
-                <span className="text-sm font-semibold mm-text-muted">Category:</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 flex-1 w-full">
+                <span className="text-sm font-semibold mm-text-muted shrink-0">Category:</span>
                 <div className="flex flex-wrap gap-2">
                   {categories.map((cat) => (
                     <button
@@ -158,12 +158,12 @@ export default function HomePage() {
               </div>
 
               {/* Sort */}
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold mm-text-muted">Sort by:</span>
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <span className="text-sm font-semibold mm-text-muted shrink-0">Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="mm-select text-sm"
+                  className="mm-select text-sm w-full sm:w-auto"
                 >
                   <option value="recent">Recent</option>
                   <option value="price-low">Price: Low to High</option>
@@ -202,15 +202,15 @@ export default function HomePage() {
         </div>
 
         {/* Footer / CTA Section */}
-        <div className="py-16 mm-muted-surface text-center">
+        <div className="py-12 sm:py-16 mm-muted-surface text-center">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Shopping Smart?</h2>
-            <p className="text-lg mm-text-muted mb-8">Join thousands of savvy shoppers comparing prices and supporting local businesses</p>
-            <div className="flex gap-4 justify-center">
-              <button onClick={() => window.location.href='/register'} className="mm-btn mm-btn-primary text-lg px-8 py-3">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to Start Shopping Smart?</h2>
+            <p className="text-base sm:text-lg mm-text-muted mb-8">Join thousands of savvy shoppers comparing prices and supporting local businesses</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <button onClick={() => window.location.href='/register'} className="mm-btn mm-btn-primary text-base sm:text-lg px-6 sm:px-8 py-3">
                 Create Account
               </button>
-              <button onClick={() => window.location.href='/login'} className="mm-btn text-lg px-8 py-3">
+              <button onClick={() => window.location.href='/login'} className="mm-btn text-base sm:text-lg px-6 sm:px-8 py-3">
                 Sign In
               </button>
             </div>
