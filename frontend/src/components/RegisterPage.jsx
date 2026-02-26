@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import AuthLayout from './AuthLayout';
+import { API_URL } from '../api/config';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function RegisterPage() {
         ? form
         : { username: form.username, email: form.email, password: form.password, role: form.role };
 
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', payload);
+      const { data } = await axios.post(`${API_URL}/auth/register`, payload);
       localStorage.setItem('mm_token', data.token);
       localStorage.setItem('mm_user', JSON.stringify(data));
       setUser(data);

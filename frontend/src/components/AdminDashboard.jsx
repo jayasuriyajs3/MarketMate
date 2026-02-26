@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import Header from './Header';
+import { API_URL } from '../api/config';
 
 export default function AdminDashboard() {
   const { user, setUser } = useAuth();
@@ -23,10 +24,10 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('mm_token');
       const [pendingRes, approvedRes] = await Promise.all([
-        fetch('http://localhost:5000/api/admin/pending-shopkeepers', {
+        fetch(`${API_URL}/admin/pending-shopkeepers`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        fetch('http://localhost:5000/api/admin/shopkeepers', {
+        fetch(`${API_URL}/admin/shopkeepers`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -47,7 +48,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('mm_token');
       const response = await fetch(
-        `http://localhost:5000/api/admin/shopkeepers/${shopkeeperId}/approve`,
+        `${API_URL}/admin/shopkeepers/${shopkeeperId}/approve`,
         {
           method: 'PUT',
           headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +74,7 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem('mm_token');
       const response = await fetch(
-        `http://localhost:5000/api/admin/shopkeepers/${shopkeeperId}/reject`,
+        `${API_URL}/admin/shopkeepers/${shopkeeperId}/reject`,
         {
           method: 'DELETE',
           headers: { Authorization: `Bearer ${token}` },

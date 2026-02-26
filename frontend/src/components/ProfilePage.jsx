@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import Header from './Header';
+import { API_URL } from '../api/config';
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -22,7 +23,7 @@ export default function ProfilePage() {
   const fetchMyProducts = async () => {
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/products/my/products', {
+      const response = await fetch(`${API_URL}/products/my/products`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -39,7 +40,7 @@ export default function ProfilePage() {
   const fetchMyOrders = async () => {
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch(`${API_URL}/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +59,7 @@ export default function ProfilePage() {
 
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+      const response = await fetch(`${API_URL}/products/${productId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import { useAuth } from './AuthContext';
+import { API_URL } from '../api/config';
 
 export default function AddProductPage() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function AddProductPage() {
 
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/products', {
+      const response = await fetch(`${API_URL}/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

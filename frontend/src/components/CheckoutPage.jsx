@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from './CartContext';
 import { useAuth } from './AuthContext';
 import Header from './Header';
+import { API_URL } from '../api/config';
 
 export default function CheckoutPage() {
   const { user } = useAuth();
@@ -23,7 +24,7 @@ export default function CheckoutPage() {
     setLoading(true);
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch(`${API_URL}/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

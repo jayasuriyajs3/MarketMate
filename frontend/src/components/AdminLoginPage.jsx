@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 import AuthLayout from './AuthLayout';
+import { API_URL } from '../api/config';
 
 export default function AdminLoginPage() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function AdminLoginPage() {
     setError('');
     setLoading(true);
     try {
-      const { data } = await axios.post('http://localhost:5000/api/admin/login', { email, password });
+      const { data } = await axios.post(`${API_URL}/admin/login`, { email, password });
       localStorage.setItem('mm_token', data.token);
       localStorage.setItem('mm_user', JSON.stringify(data));
       setUser(data);

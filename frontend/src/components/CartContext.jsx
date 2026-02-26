@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { API_URL } from '../api/config';
 
 const CartContext = createContext();
 
@@ -16,7 +17,7 @@ export function CartProvider({ children }) {
       const token = localStorage.getItem('mm_token');
       if (!token) return;
 
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch(`${API_URL}/cart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.ok) {
@@ -32,7 +33,7 @@ export function CartProvider({ children }) {
     setLoading(true);
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/cart/add', {
+      const response = await fetch(`${API_URL}/cart/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export function CartProvider({ children }) {
     setLoading(true);
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/cart/remove', {
+      const response = await fetch(`${API_URL}/cart/remove`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ export function CartProvider({ children }) {
     setLoading(true);
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/cart/update', {
+      const response = await fetch(`${API_URL}/cart/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -120,7 +121,7 @@ export function CartProvider({ children }) {
   const clearCart = async () => {
     try {
       const token = localStorage.getItem('mm_token');
-      const response = await fetch('http://localhost:5000/api/cart/clear', {
+      const response = await fetch(`${API_URL}/cart/clear`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
       });

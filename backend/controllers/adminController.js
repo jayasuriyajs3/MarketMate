@@ -48,9 +48,7 @@ const adminLogin = async (req, res) => {
   }
 };
 
-// @desc    Get all pending shopkeeper registrations
-// @route   GET /api/admin/pending-shopkeepers
-// @access  Private (Admin only)
+
 const getPendingShopkeepers = async (req, res) => {
   try {
     const shopkeepers = await User.find({ role: 'shopkeeper', isApproved: false }).select('-password');
@@ -61,9 +59,7 @@ const getPendingShopkeepers = async (req, res) => {
   }
 };
 
-// @desc    Get all approved shopkeepers
-// @route   GET /api/admin/shopkeepers
-// @access  Private (Admin only)
+
 const getApprovedShopkeepers = async (req, res) => {
   try {
     const shopkeepers = await User.find({ role: 'shopkeeper', isApproved: true }).select('-password');
@@ -74,9 +70,7 @@ const getApprovedShopkeepers = async (req, res) => {
   }
 };
 
-// @desc    Approve a shopkeeper
-// @route   PUT /api/admin/shopkeepers/:id/approve
-// @access  Private (Admin only)
+
 const approveShopkeeper = async (req, res) => {
   try {
     const shopkeeper = await User.findById(req.params.id);

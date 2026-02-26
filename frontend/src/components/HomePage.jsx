@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from './Header';
 import ProductCard from './ProductCard';
+import { API_URL } from '../api/config';
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ export default function HomePage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      let url = 'http://localhost:5000/api/products?';
+      let url = `${API_URL}/products?`;
       if (category !== 'All') url += `category=${category}&`;
       if (search) url += `search=${search}&`;
       url += `sortBy=${sortBy}`;
